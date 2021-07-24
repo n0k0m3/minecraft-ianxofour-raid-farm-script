@@ -35,9 +35,9 @@ def write_to_chat(text: str = 'Testing PyAG executed'):
 
 
 def flip_switch():
-    pyautogui.move(-125, 45, duration=0.5)
+    pyautogui.move(-65, 25, duration=1)
     pyautogui.press("e")
-    pyautogui.move(125, -45, duration=0.5)
+    pyautogui.move(65, -25, duration=1)
 
 
 def swipe_per_sec(swipe: int = 50):
@@ -78,7 +78,7 @@ def one_loop(**kwargs):
     swipe_per_sec(55)
 
 
-def main():
+def main(debug=False):
 
     focus_windows()
     sleep(1)
@@ -99,8 +99,10 @@ def main():
         one_loop(eat=eating)
 
         i += 1
-        if i == 1 or i % 10 == 0:
+        if debug and (i == 1 or i % 10 == 0):
             write_to_chat(text=f'[Raid Farm Bot] Completed {i} loop')
+        
+        # break
 
 
 if __name__ == "__main__":
