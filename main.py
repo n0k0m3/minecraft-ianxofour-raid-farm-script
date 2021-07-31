@@ -1,11 +1,12 @@
 import pyautogui
 from time import time, sleep
-from sys import platform
+from sys import platform, exc_info
 from subprocess import call, check_output
 from typing import Union
 
 
 def focus_windows():
+    print("[INFO] Switch windows to minecraft")
     # Switch windows to minecraft
     if "linux" in platform:
         cmd = "xdotool search --name Minecraft".split()
@@ -16,6 +17,7 @@ def focus_windows():
 
 
 def multiple_keyhold(keys: Union[str, list], hold_time: Union[int, float] = 0):
+    print(f"[INFO]        Holding {keys} for {hold_time} seconds")
     if type(keys) == str:
         keys = [k for k in keys]
 
@@ -29,22 +31,26 @@ def multiple_keyhold(keys: Union[str, list], hold_time: Union[int, float] = 0):
 
 
 def write_to_chat(text: str = 'Testing PyAG executed'):
+    print(f"[ACTION]      Write {text} to chat")
     pyautogui.press('enter')
     pyautogui.write(text)
     pyautogui.press('enter')
 
 
 def flip_switch():
+    print(f"[ACTION]    Flip Switch")
     pyautogui.move(-65, 25, duration=1)
     pyautogui.press("e")
     pyautogui.move(65, -25, duration=1)
 
 
 def swipe_per_sec(swipe: int = 50):
+    print(f"[ACTION]    Attack {swipe} times")
     pyautogui.click(clicks=swipe, interval=1)
 
 
 def eating(weapon_slot: Union[int, str] = 1, food_slot: Union[int, str] = 9):
+    print(f"[ACTION]    Eating")
     weapon_slot = str(weapon_slot)
     food_slot = str(food_slot)
 
@@ -53,7 +59,8 @@ def eating(weapon_slot: Union[int, str] = 1, food_slot: Union[int, str] = 9):
     pyautogui.press(weapon_slot)
 
 
-def reset_tower(eat: bool = False):
+def reset_raid(eat: bool = False):
+    print(f"[ACTION]    Reset Raid")
     multiple_keyhold("as", 0.5)
     multiple_keyhold("wd", 0.5)
     sleep(2)
@@ -69,9 +76,10 @@ def reset_tower(eat: bool = False):
 
 
 def one_loop(**kwargs):
+    print("[INFO] Loop started")
     # Turn off water
     flip_switch()
-    reset_tower(**kwargs)
+    reset_raid(**kwargs)
     # Wait for horn
     sleep(8)
     flip_switch()
@@ -101,8 +109,6 @@ def main(debug=False):
         i += 1
         if debug and (i == 1 or i % 10 == 0):
             write_to_chat(text=f'[Raid Farm Bot] Completed {i} loop')
-        
-        # break
 
 
 if __name__ == "__main__":
